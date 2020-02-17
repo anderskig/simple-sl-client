@@ -1,21 +1,45 @@
 import React from 'react';
 
+const isNotRealtime = displayTime => displayTime.includes(':');
+const isNow = displayTime => displayTime === 'Nu';
+
 function timeString(displayTime) {
-  if (displayTime.includes(':')) {
-    return (<span> <b>{displayTime}</b> enligt tidtabell</span>);
+  if (isNotRealtime(displayTime)) {
+    return (<span> enligt tidtabell <b>{displayTime}</b></span>);
   }
-  if (displayTime === 'Nu') {
+  if (isNow(displayTime)) {
     return (<span> går <b>nu</b></span>);
   }
   return (<span> om <b>{displayTime}</b></span>);
 }
 
+function timeToDeparture(displayTime) {
+  if (isNotRealtime(displayTime)) {
+    //use moment
+    return 100;
+  }
+  if (isNow(displayTime)) {
+    return 0;
+  }
+  return displayTime.split(' ')[0];
+}
+
+function canCatch(departure, timeToWalk) {
+  const minutesToDeparture = timeToDeparture(departure.DisplayTime);
+  if (isNaN(timeToWalk)) {
+    return true;
+  }
+  return minutesToDeparture - timeToWalk > 0;
+}
+
 function DepartureList(props) {
+  const { showDestination, list, timeToWalk } = props;
+  const canCatchList = list.filter(departure => canCatch(departure, timeToWalk));
   return (
     <div>
-      {props.list.map((departure, index) =>
+      {canCatchList.map((departure, index) =>
       (<div key={index}>
-        <span><b>{departure.LineNumber}</b> ({departure.Destination})</span>
+        <span><b>{departure.LineNumber}</b> {showDestination ? '(' + departure.Destination + ')' : ''}</span>
         {timeString(departure.DisplayTime)}
       </div>)
       )}

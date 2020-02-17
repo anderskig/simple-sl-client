@@ -11,6 +11,7 @@ const sites = [
 
 function RealtimeResults() {
   const [timeWindow, setTimeWindow] = useState(30);
+  const [showDestination, setshowDestination] = useState(false);
 
   return (
     <div className="RealtimeResults">
@@ -22,14 +23,19 @@ function RealtimeResults() {
               <option value="60">60 minuter</option>
             </select>
           </div>
-          <div className="RealtimeResults__option">Dölj avgångar jag inte hinner till&nbsp;
-            <input type="checkbox"></input>
+          <div className="RealtimeResults__option">
+            <label htmlFor="hideToCloseInTime">Dölj avgångar jag inte hinner till&nbsp;</label>
+            <input id="hideToCloseInTime" type="checkbox"></input>
+          </div>
+          <div className="RealtimeResults__option">
+            <label htmlFor="showDestination">Visa linjedestination&nbsp;</label>
+            <input id="showDestination" type="checkbox" onChange={(event) => setshowDestination(event.target.checked)}></input>
           </div>
         </div>
       </ContentBox>
       <div className="RealtimeResults__boxes">
         {sites.map((site, index) => (
-          <RealtimeResult key={index} site={site} timeWindow={timeWindow}></RealtimeResult>
+          <RealtimeResult index={index} showDestination={showDestination} key={index} site={site} timeWindow={timeWindow}></RealtimeResult>
         ))}
       </div>
     </div>
