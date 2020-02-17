@@ -24,6 +24,15 @@ function RealtimeResult(props) {
   const apiUrl = 'http://localhost:9000/';
   const apiPath = 'nextDeparture/';
 
+  const handleSetTimeToWalk = (value) => {
+    const intValue = parseInt(value,10);
+    if (intValue < 0 || isNaN(intValue)) {
+      setTimeToWalk(0);
+    } else {
+      setTimeToWalk(intValue);
+    }
+  }
+
   useEffect(() => {
     async function fetchData() {
       const result = await axios.get(
@@ -41,7 +50,7 @@ function RealtimeResult(props) {
         <h2>{site.name}</h2>
         <div className="RealtimeResult__options">
           <label htmlFor={'timeToWalk' + index}>Tid att gå&nbsp;</label>
-          <input step="1" pattern="\d+" value={timeToWalk} id={'timeToWalk' + index} type="number" onChange={(event) => setTimeToWalk(parseInt(event.target.value,10))}></input>
+          <input step="1" pattern="\d+" value={timeToWalk} id={'timeToWalk' + index} type="number" onChange={(event) => handleSetTimeToWalk(event.target.value)}></input>
         </div>
         <h3>Mot stan</h3>
           <DeparturesList timeToWalk={timeToWalk} showDestination={showDestination} list={departures.filter(line => getDirection(line) === 2)}></DeparturesList>
