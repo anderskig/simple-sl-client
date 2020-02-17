@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios  from 'axios';
 import DeparturesList from '../../DepartureList/DepartureList';
+import ContentBox from '../../ContentBox/ContentBox';
 
 function getDirection(line) {
   // Some lines have opposite journey direction compared to other lines at same sites for some reason
@@ -38,13 +39,15 @@ function RealtimeResult(props) {
   const {name, result} = realtimeResult;
   const departures = result.Buses.concat(result.Trams);
   return (
-    <div>
-      <h2>{name}</h2>
-      <h3>Mot stan</h3>
-        <DeparturesList list={departures.filter(line => getDirection(line) === 2)}></DeparturesList>
-      <h3>Mot Nacka</h3>
-        <DeparturesList list={departures.filter(line => getDirection(line) === 1)}></DeparturesList>
-    </div>
+    <ContentBox>
+      <div className="RealtimeResult">
+        <h2>{name}</h2>
+        <h3>Mot stan</h3>
+          <DeparturesList list={departures.filter(line => getDirection(line) === 2)}></DeparturesList>
+        <h3>Mot Nacka</h3>
+          <DeparturesList list={departures.filter(line => getDirection(line) === 1)}></DeparturesList>
+      </div>
+    </ContentBox>
   );
 }
 

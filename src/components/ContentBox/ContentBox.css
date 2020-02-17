@@ -1,0 +1,9 @@
+.ContentBox {
+  padding: 10px;
+  margin: 10px;
+  background: #f7f7f7;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex-grow: 1;
+}
