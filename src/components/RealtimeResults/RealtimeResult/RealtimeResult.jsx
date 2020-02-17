@@ -18,7 +18,7 @@ function getDirection(line) {
 }
 
 function RealtimeResult(props) {
-  const { site, timeWindow, showDestination, index } = props;
+  const { site, timeWindow, showDestination, showCantCatch, index } = props;
   const [realtimeResult, setRealtimeResult] = useState({Buses: [], Trams: []});
   const [timeToWalk, setTimeToWalk] = useState(0);
   const apiUrl = 'http://localhost:9000/';
@@ -51,11 +51,12 @@ function RealtimeResult(props) {
         <div className="RealtimeResult__options">
           <label htmlFor={'timeToWalk' + index}>Tid att gå&nbsp;</label>
           <input step="1" pattern="\d+" value={timeToWalk} id={'timeToWalk' + index} type="number" onChange={(event) => handleSetTimeToWalk(event.target.value)}></input>
+          &nbsp;minuter
         </div>
         <h3>Mot stan</h3>
-          <DeparturesList timeToWalk={timeToWalk} showDestination={showDestination} list={departures.filter(line => getDirection(line) === 2)}></DeparturesList>
+          <DeparturesList showCantCatch={showCantCatch} timeToWalk={timeToWalk} showDestination={showDestination} list={departures.filter(line => getDirection(line) === 2)}></DeparturesList>
         <h3>Mot Nacka</h3>
-          <DeparturesList timeToWalk={timeToWalk} showDestination={showDestination} list={departures.filter(line => getDirection(line) === 1)}></DeparturesList>
+          <DeparturesList showCantCatch={showCantCatch} timeToWalk={timeToWalk} showDestination={showDestination} list={departures.filter(line => getDirection(line) === 1)}></DeparturesList>
       </div>
     </ContentBox>
   );

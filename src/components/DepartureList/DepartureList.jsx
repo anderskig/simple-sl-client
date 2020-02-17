@@ -33,8 +33,8 @@ function canCatch(departure, timeToWalk) {
 }
 
 function DepartureList(props) {
-  const { showDestination, list, timeToWalk } = props;
-  const canCatchList = list.filter(departure => canCatch(departure, timeToWalk));
+  const { showDestination, showCantCatch, list, timeToWalk } = props;
+  const canCatchList = showCantCatch ? list : list.filter(departure => canCatch(departure, timeToWalk));
   return (
     <div>
       {canCatchList.map((departure, index) =>

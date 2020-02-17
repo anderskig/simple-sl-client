@@ -11,7 +11,8 @@ const sites = [
 
 function RealtimeResults() {
   const [timeWindow, setTimeWindow] = useState(30);
-  const [showDestination, setshowDestination] = useState(false);
+  const [showDestination, setShowDestination] = useState(false);
+  const [showCantCatch, setShowCantCatch] = useState(false);
 
   return (
     <div className="RealtimeResults">
@@ -24,18 +25,18 @@ function RealtimeResults() {
             </select>
           </div>
           <div className="RealtimeResults__option">
-            <label htmlFor="hideToCloseInTime">Dölj avgångar jag inte hinner till&nbsp;</label>
-            <input id="hideToCloseInTime" type="checkbox"></input>
+            <label htmlFor="hideToCloseInTime">Visa avgångar jag inte hinner till&nbsp;</label>
+            <input id="hideToCloseInTime" type="checkbox" onChange={(event) => setShowCantCatch(event.target.checked)}></input>
           </div>
           <div className="RealtimeResults__option">
             <label htmlFor="showDestination">Visa linjedestination&nbsp;</label>
-            <input id="showDestination" type="checkbox" onChange={(event) => setshowDestination(event.target.checked)}></input>
+            <input id="showDestination" type="checkbox" onChange={(event) => setShowDestination(event.target.checked)}></input>
           </div>
         </div>
       </ContentBox>
       <div className="RealtimeResults__boxes">
         {sites.map((site, index) => (
-          <RealtimeResult index={index} showDestination={showDestination} key={index} site={site} timeWindow={timeWindow}></RealtimeResult>
+          <RealtimeResult index={index} showCantCatch={showCantCatch} showDestination={showDestination} key={index} site={site} timeWindow={timeWindow}></RealtimeResult>
         ))}
       </div>
     </div>
