@@ -1,0 +1,11 @@
+.DepartureList i {
+  margin-right: 5px;
+  width: 16px;
+  text-align: center;
+}
+.DepartureList i.fa-bus-alt {
+  color: #b22222;
+}
+.DepartureList i.fa-subway {
+  color: #4169e1;
+}
