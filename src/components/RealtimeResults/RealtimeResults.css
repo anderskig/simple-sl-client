@@ -1,6 +1,7 @@
 .RealtimeResults__options {
   width: 100;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .RealtimeResults__option {

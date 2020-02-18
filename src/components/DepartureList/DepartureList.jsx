@@ -75,9 +75,11 @@ function DepartureList(props) {
       {sortedList.map((departure, index) => (
         <div key={index}>
           <i className={'fad fa-' + getIconSuffix(departure.TransportMode)}></i>
+          <span className="DepartureList__lineNumber">
+            {departure.LineNumber}
+          </span>{' '}
           <span>
-            <b>{departure.LineNumber}</b>{' '}
-            {showDestination ? '(' + departure.Destination + ')' : ''}
+            {showDestination ? 'mot ' + departure.Destination + '' : ''}
           </span>
           {timeString(departure.DisplayTime)}
         </div>

@@ -9,3 +9,10 @@
 .DepartureList i.fa-subway {
   color: #4169e1;
 }
+
+.DepartureList__lineNumber {
+  display: inline-block;
+  width: 30px;
+  font-weight: bold;
+  text-align: right;
+}
