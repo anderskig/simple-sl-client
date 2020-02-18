@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DeparturesList from '../../DepartureList/DepartureList';
 import ContentBox from '../../ContentBox/ContentBox';
+import { setStorageTimeToWalk } from '../../../storage/storage';
 
 function getDirection(line) {
   // Some lines have opposite journey direction compared to other lines at same sites for some reason
@@ -23,17 +24,15 @@ function RealtimeResult(props) {
     Buses: [],
     Trams: [],
   });
-  const [timeToWalk, setTimeToWalk] = useState(0);
+  const [timeToWalk, setTimeToWalk] = useState(site.timeToWalk);
   const apiUrl = 'http://localhost:9000/';
   const apiPath = 'nextDeparture/';
 
   const handleSetTimeToWalk = value => {
     const intValue = parseInt(value, 10);
-    if (intValue < 0 || isNaN(intValue)) {
-      setTimeToWalk(0);
-    } else {
-      setTimeToWalk(intValue);
-    }
+    const valueToSet = intValue < 0 || isNaN(intValue) ? 0 : intValue;
+    setTimeToWalk(valueToSet);
+    setStorageTimeToWalk(valueToSet, site.siteId);
   };
 
   useEffect(() => {
