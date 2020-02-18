@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import RealtimeResult from './RealtimeResult/RealtimeResult';
 import ContentBox from '../ContentBox/ContentBox';
+import { get } from '../../storage/storage';
 import './RealtimeResults.css';
-
-const sites = [
-  { name: 'Ekuddsvägen', siteId: 4042 },
-  { name: 'Finntorp', siteId: 4046 },
-  { name: 'Saltsjö-Järla', siteId: 9429 },
-];
 
 function RealtimeResults() {
   const [timeWindow, setTimeWindow] = useState(30);
@@ -46,7 +41,7 @@ function RealtimeResults() {
         </div>
       </ContentBox>
       <div className="RealtimeResults__boxes">
-        {sites.map((site, index) => (
+        {get('sites').map((site, index) => (
           <RealtimeResult
             index={index}
             showCantCatch={showCantCatch}
