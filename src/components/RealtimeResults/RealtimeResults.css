@@ -1,5 +1,5 @@
 .RealtimeResults__options {
-  width: 100;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
@@ -10,6 +10,7 @@
 
 .RealtimeResults__boxes {
   display: flex;
-  width: 100;
+  width: 100%;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }

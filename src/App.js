@@ -1,12 +1,17 @@
 import React from 'react';
-import './App.css';
 import RealtimeResults from './components/RealtimeResults/RealtimeResults';
+import { CssBaseline, Container } from '@material-ui/core';
 
 function App() {
   return (
-    <div className="App">
-      <RealtimeResults></RealtimeResults>
-    </div>
+    <React.Fragment>
+      <CssBaseline />
+      <div className="App">
+        <Container maxWidth="lg" disableGutters={true}>
+          <RealtimeResults />
+        </Container>
+      </div>
+    </React.Fragment>
   );
 }
 
