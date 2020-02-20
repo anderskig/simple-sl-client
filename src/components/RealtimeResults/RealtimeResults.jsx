@@ -7,7 +7,6 @@ import { Grid } from '@material-ui/core';
 
 function RealtimeResults() {
   const [timeWindow, setTimeWindow] = useState(30);
-  const [showDestination, setShowDestination] = useState(false);
   const [showCantCatch, setShowCantCatch] = useState(false);
 
   return (
@@ -32,26 +31,13 @@ function RealtimeResults() {
                 onChange={event => setShowCantCatch(event.target.checked)}
               ></input>
             </div>
-            <div className="RealtimeResults__option">
-              <label htmlFor="showDestination">
-                Visa linjedestination&nbsp;
-              </label>
-              <input
-                id="showDestination"
-                type="checkbox"
-                onChange={event => setShowDestination(event.target.checked)}
-              ></input>
-            </div>
           </div>
         </ContentBox>
       </Grid>
       {get('sites').map((site, index) => (
-        <Grid item xs={12} md="auto">
+        <Grid key={index} item xs={12} md="auto">
           <RealtimeResult
-            index={index}
             showCantCatch={showCantCatch}
-            showDestination={showDestination}
-            key={index}
             site={site}
             timeWindow={timeWindow}
           ></RealtimeResult>

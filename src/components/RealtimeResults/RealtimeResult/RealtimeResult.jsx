@@ -4,8 +4,14 @@ import DeparturesList from '../../DepartureList/DepartureList';
 import ContentBox from '../../ContentBox/ContentBox';
 import { setStorageTimeToWalk } from '../../../storage/storage';
 import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header/Header';
-import './RealtimeResult.css';
+
+const useStyles = makeStyles(theme => ({
+  listTitle: {
+    padding: '0 ' + theme.spacing(2) + 'px',
+  },
+}));
 
 function getDirection(line) {
   // Some lines have opposite journey direction compared to other lines at same sites for some reason
@@ -22,7 +28,8 @@ function getDirection(line) {
 }
 
 function RealtimeResult(props) {
-  const { site, timeWindow, showDestination, showCantCatch, index } = props;
+  const classes = useStyles();
+  const { site, timeWindow, showCantCatch } = props;
   const [realtimeResult, setRealtimeResult] = useState({
     Buses: [],
     Trams: [],
@@ -53,23 +60,24 @@ function RealtimeResult(props) {
     <ContentBox>
       <div className="RealtimeResult">
         <Header
-          index={index}
           site={site}
           handleSetTimeToWalk={handleSetTimeToWalk}
           timeToWalk={timeToWalk}
         />
-        <Typography variant="h6">Mot stan</Typography>
+        <Typography className={classes.listTitle} variant="h6">
+          Mot stan
+        </Typography>
         <DeparturesList
           showCantCatch={showCantCatch}
           timeToWalk={timeToWalk}
-          showDestination={showDestination}
           list={departures.filter(line => getDirection(line) === 2)}
         ></DeparturesList>
-        <Typography variant="h6">Mot Nacka</Typography>
+        <Typography className={classes.listTitle} variant="h6">
+          Mot Nacka
+        </Typography>
         <DeparturesList
           showCantCatch={showCantCatch}
           timeToWalk={timeToWalk}
-          showDestination={showDestination}
           list={departures.filter(line => getDirection(line) === 1)}
         ></DeparturesList>
       </div>

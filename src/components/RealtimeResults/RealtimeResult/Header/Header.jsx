@@ -1,43 +1,45 @@
 import React from 'react';
-import { Typography, TextField, InputAdornment } from '@material-ui/core';
+import { Typography, TextField, InputAdornment, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-  textField: {
-    width: 145,
-  },
+const useStyles = makeStyles(theme => {
+  return {
+    box: {
+      padding: theme.spacing(2),
+    },
+    textField: {
+      width: 145,
+      margin: '8px 0',
+    },
+  };
 });
 
 function Header(props) {
   const classes = useStyles();
-  const { handleSetTimeToWalk, index, timeToWalk, site } = props;
+  const { handleSetTimeToWalk, timeToWalk, site } = props;
   return (
-    <div className="RealtimeResult__Header">
+    <Box className={classes.box} component="div">
       <Typography variant="h4">{site.name}</Typography>
-      <div className="RealtimeResult__options">
-        <TextField
-          className={classes.textField}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <i class="fas fa-walking"></i>
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position="end">minuter</InputAdornment>
-            ),
-            inputProps: { step: '1', pattern: 'd+\\' },
-          }}
-          type="number"
-          label="Tid att gå"
-          id={'timeToWalk' + index}
-          value={timeToWalk}
-          variant="outlined"
-          size="small"
-          onChange={event => handleSetTimeToWalk(event.target.value)}
-        />
-      </div>
-    </div>
+      <TextField
+        className={classes.textField}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <i className="fas fa-walking"></i>
+            </InputAdornment>
+          ),
+          endAdornment: <InputAdornment position="end">minuter</InputAdornment>,
+          inputProps: { step: '1', pattern: 'd+\\' },
+        }}
+        type="number"
+        label="Tid att gå"
+        id={'timeToWalk' + site.siteId}
+        value={timeToWalk}
+        variant="outlined"
+        size="small"
+        onChange={event => handleSetTimeToWalk(event.target.value)}
+      />
+    </Box>
   );
 }
 

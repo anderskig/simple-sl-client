@@ -1,38 +1,21 @@
 import React from 'react';
-import './DepartureList.css';
+// import './DepartureList.css';
 import moment from 'moment';
+import ListItem from './ListItem/ListItem';
+import List from '@material-ui/core/List';
+import { makeStyles } from '@material-ui/core/styles';
 
-const isNotRealtime = displayTime => displayTime.includes(':');
-const isNow = displayTime => displayTime === 'Nu';
+export const isNotRealtime = displayTime => displayTime.includes(':');
+export const isNow = displayTime => displayTime === 'Nu';
 
-function timeString(displayTime) {
-  if (isNotRealtime(displayTime)) {
-    return (
-      <span>
-        {' '}
-        enligt tidtabell <b>{displayTime}</b>
-      </span>
-    );
-  }
-  if (isNow(displayTime)) {
-    return (
-      <span>
-        {' '}
-        går <b>nu</b>
-      </span>
-    );
-  }
-  return (
-    <span>
-      {' '}
-      om <b>{displayTime}</b>
-    </span>
-  );
-}
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginBottom: theme.spacing(2),
+  },
+}));
 
 function timeToDeparture(displayTime) {
   if (isNotRealtime(displayTime)) {
-    //use moment
     const departureTime = moment(displayTime, 'HH:mm');
     const now = moment();
     const diff = departureTime.diff(now, 'minutes');
@@ -52,17 +35,8 @@ function canCatch(departure, timeToWalk) {
   return minutesToDeparture - timeToWalk >= 0;
 }
 
-function getIconSuffix(transportMode) {
-  if (transportMode === 'BUS') {
-    return 'bus-alt';
-  } else if (transportMode === 'TRAM') {
-    return 'subway';
-  } else if (transportMode === 'TRAIN') {
-    return 'train';
-  }
-}
-
 function DepartureList(props) {
+  const classes = useStyles();
   const { showDestination, showCantCatch, list, timeToWalk } = props;
   const canCatchList = showCantCatch
     ? list
@@ -71,20 +45,15 @@ function DepartureList(props) {
     (a, b) => timeToDeparture(a.DisplayTime) - timeToDeparture(b.DisplayTime),
   );
   return (
-    <div className="DepartureList">
+    <List className={classes.root}>
       {sortedList.map((departure, index) => (
-        <div key={index}>
-          <i className={'fad fa-' + getIconSuffix(departure.TransportMode)}></i>
-          <span className="DepartureList__lineNumber">
-            {departure.LineNumber}
-          </span>{' '}
-          <span>
-            {showDestination ? 'mot ' + departure.Destination + '' : ''}
-          </span>
-          {timeString(departure.DisplayTime)}
-        </div>
+        <ListItem
+          key={index}
+          departure={departure}
+          showDestination={showDestination}
+        ></ListItem>
       ))}
-    </div>
+    </List>
   );
 }
 
