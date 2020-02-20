@@ -3,15 +3,9 @@ import axios from 'axios';
 import DeparturesList from '../../DepartureList/DepartureList';
 import ContentBox from '../../ContentBox/ContentBox';
 import { setStorageTimeToWalk } from '../../../storage/storage';
-import { Typography, TextField, InputAdornment } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { Typography } from '@material-ui/core';
+import Header from './Header/Header';
 import './RealtimeResult.css';
-
-const useStyles = makeStyles({
-  textField: {
-    width: 145,
-  },
-});
 
 function getDirection(line) {
   // Some lines have opposite journey direction compared to other lines at same sites for some reason
@@ -55,35 +49,15 @@ function RealtimeResult(props) {
   }, [site.siteId, timeWindow]);
 
   const departures = realtimeResult.Buses.concat(realtimeResult.Trams);
-  const classes = useStyles();
   return (
     <ContentBox>
       <div className="RealtimeResult">
-        <Typography variant="h4">{site.name}</Typography>
-        <div className="RealtimeResult__options">
-          <TextField
-            className={classes.textField}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <i class="fas fa-walking"></i>
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">minuter</InputAdornment>
-              ),
-              inputProps: { step: '1', pattern: 'd+\\' },
-            }}
-            type="number"
-            label="Tid att gå"
-            id={'timeToWalk' + index}
-            value={timeToWalk}
-            variant="outlined"
-            size="small"
-            onChange={event => handleSetTimeToWalk(event.target.value)}
-          />
-        </div>
-
+        <Header
+          index={index}
+          site={site}
+          handleSetTimeToWalk={handleSetTimeToWalk}
+          timeToWalk={timeToWalk}
+        />
         <Typography variant="h6">Mot stan</Typography>
         <DeparturesList
           showCantCatch={showCantCatch}
