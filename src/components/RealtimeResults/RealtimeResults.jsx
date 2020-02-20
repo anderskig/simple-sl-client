@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import RealtimeResult from './RealtimeResult/RealtimeResult';
-import ContentBox from '../ContentBox/ContentBox';
 import { get } from '../../storage/storage';
-import './RealtimeResults.css';
 import { Grid } from '@material-ui/core';
+import Options from './Options/Options';
 
 function RealtimeResults() {
   const [timeWindow, setTimeWindow] = useState(30);
@@ -12,27 +11,11 @@ function RealtimeResults() {
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>
-        <ContentBox>
-          <div className="RealtimeResults__options">
-            <div className="RealtimeResults__option">
-              Avgångar inom&nbsp;
-              <select onChange={event => setTimeWindow(event.target.value)}>
-                <option value="30">30 minuter</option>
-                <option value="60">60 minuter</option>
-              </select>
-            </div>
-            <div className="RealtimeResults__option">
-              <label htmlFor="hideToCloseInTime">
-                Visa avgångar jag inte hinner till&nbsp;
-              </label>
-              <input
-                id="hideToCloseInTime"
-                type="checkbox"
-                onChange={event => setShowCantCatch(event.target.checked)}
-              ></input>
-            </div>
-          </div>
-        </ContentBox>
+        <Options
+          timeWindow={timeWindow}
+          setTimeWindow={setTimeWindow}
+          setShowCantCatch={setShowCantCatch}
+        />
       </Grid>
       {get('sites').map((site, index) => (
         <Grid key={index} item xs={12} md="auto">
@@ -40,7 +23,7 @@ function RealtimeResults() {
             showCantCatch={showCantCatch}
             site={site}
             timeWindow={timeWindow}
-          ></RealtimeResult>
+          />
         </Grid>
       ))}
     </Grid>
