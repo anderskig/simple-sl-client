@@ -28,26 +28,30 @@ function timeToDeparture(displayTime) {
 }
 
 function canCatch(departure, timeToWalk) {
-  const minutesToDeparture = timeToDeparture(departure.DisplayTime);
   if (isNaN(timeToWalk)) {
     return true;
   }
-  return minutesToDeparture - timeToWalk >= 0;
+  return departure.MinutesToDeparture - timeToWalk >= 0;
 }
 
 function DepartureList(props) {
   const classes = useStyles();
   const { showDestination, showCantCatch, list, timeToWalk } = props;
+  const listWithTTD = list.map(departure => {
+    departure.MinutesToDeparture = timeToDeparture(departure.DisplayTime);
+    return departure;
+  });
   const canCatchList = showCantCatch
-    ? list
-    : list.filter(departure => canCatch(departure, timeToWalk));
+    ? listWithTTD
+    : listWithTTD.filter(departure => canCatch(departure, timeToWalk));
   const sortedList = canCatchList.sort(
-    (a, b) => timeToDeparture(a.DisplayTime) - timeToDeparture(b.DisplayTime),
+    (a, b) => a.MinutesToDeparture - b.MinutesToDeparture,
   );
   return (
     <List className={classes.root}>
       {sortedList.map((departure, index) => (
         <ListItem
+          timeToWalk={timeToWalk}
           key={index}
           departure={departure}
           showDestination={showDestination}

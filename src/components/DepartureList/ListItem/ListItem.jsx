@@ -8,6 +8,14 @@ import {
   Typography,
 } from '@material-ui/core';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  secondary: {
+    marginRight: 80,
+  },
+}));
+
 function getIconSuffix(transportMode) {
   if (transportMode === 'BUS') {
     return 'bus-alt';
@@ -28,8 +36,17 @@ function getColor(transportMode) {
   }
 }
 
+function leaveString(minutes) {
+  if (minutes === 0) {
+    return 'Gå nu!';
+  } else {
+    return 'Gå om ' + minutes + ' min';
+  }
+}
+
 function ListItem(props) {
-  const { departure } = props;
+  const { departure, timeToWalk } = props;
+  const classes = useStyles();
   return (
     <MaterialListItem>
       <ListItemAvatar>
@@ -38,11 +55,16 @@ function ListItem(props) {
         </Avatar>
       </ListItemAvatar>
       <ListItemText
+        classes={{
+          secondary: classes.secondary,
+        }}
         primary={departure.LineNumber}
         secondary={departure.Destination}
       />
       <ListItemSecondaryAction>
-        <Typography variant="h6">{departure.DisplayTime}</Typography>
+        <Typography variant="body1">
+          <b>{leaveString(departure.MinutesToDeparture - timeToWalk)}</b>
+        </Typography>
       </ListItemSecondaryAction>
     </MaterialListItem>
   );

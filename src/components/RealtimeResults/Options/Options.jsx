@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => ({
   listItem: {
     paddingLeft: 0,
     paddingRight: 0,
-    fontSize: theme.typography.pxToRem(10),
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -52,7 +51,7 @@ function Options(props) {
         <ExpansionPanelDetails>
           <List className={classes.root}>
             <ListItem className={classes.listItem}>
-              <ListItemText primary={'Visa avgångar inom:'} />
+              <ListItemText secondary={'Visa avgångar inom:'} />
               <ListItemSecondaryAction>
                 <Select
                   value={timeWindow}
@@ -64,13 +63,13 @@ function Options(props) {
               </ListItemSecondaryAction>
             </ListItem>
             <ListItem className={classes.listItem}>
-              <ListItemText primary={'Visa avgångar jag inte hinner till:'} />
+              <ListItemText secondary={'Visa avgångar jag inte hinner till:'} />
               <ListItemSecondaryAction>
                 <Switch
                   edge="end"
+                  color="primary"
                   checked={showCantCatch}
                   onChange={event => setShowCantCatch(event.target.checked)}
-                  // value="checkedA"
                 />
               </ListItemSecondaryAction>
             </ListItem>
