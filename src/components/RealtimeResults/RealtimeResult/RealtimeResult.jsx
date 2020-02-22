@@ -35,7 +35,7 @@ function RealtimeResult(props) {
     Trams: [],
   });
   const [timeToWalk, setTimeToWalk] = useState(site.timeToWalk);
-  const apiUrl = 'http://localhost:9000/';
+  const apiUrl = 'https://sl-api-wrapper.herokuapp.com/';
   const apiPath = 'nextDeparture/';
 
   const handleSetTimeToWalk = value => {
