@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import ContentBox from '../../ContentBox/ContentBox';
 import {
   ExpansionPanel,
@@ -33,7 +33,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Options(props) {
+interface OptionProps {
+  timeWindow: number;
+  setTimeWindow: Function;
+  showCantCatch: boolean;
+  setShowCantCatch: Function;
+}
+
+const Options: FunctionComponent<OptionProps> = props => {
   const { timeWindow, setTimeWindow, showCantCatch, setShowCantCatch } = props;
   const classes = useStyles();
   return (
@@ -76,19 +83,8 @@ function Options(props) {
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
-      {/* <div className="RealtimeResults__option">Avgångar inom&nbsp;</div>
-      <div className="RealtimeResults__option">
-        <label htmlFor="hideToCloseInTime">
-          Visa avgångar jag inte hinner till&nbsp;
-        </label>
-        <input
-          id="hideToCloseInTime"
-          type="checkbox"
-          onChange={event => setShowCantCatch(event.target.checked)}
-        ></input>
-      </div> */}
     </ContentBox>
   );
-}
+};
 
 export default Options;

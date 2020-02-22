@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import RealtimeResult from './RealtimeResult/RealtimeResult';
-import { get } from '../../storage/storage';
+import { getSites } from '../../storage/storage';
 import { Grid } from '@material-ui/core';
 import Options from './Options/Options';
 
@@ -15,9 +15,10 @@ function RealtimeResults() {
           timeWindow={timeWindow}
           setTimeWindow={setTimeWindow}
           setShowCantCatch={setShowCantCatch}
+          showCantCatch={showCantCatch}
         />
       </Grid>
-      {get('sites').map((site, index) => (
+      {getSites().map((site, index) => (
         <Grid key={index} item xs={12} md="auto">
           <RealtimeResult
             showCantCatch={showCantCatch}

@@ -1,5 +1,4 @@
-import React from 'react';
-import './ContentBox.css';
+import React, { FunctionComponent } from 'react';
 import { Card } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -10,9 +9,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ContentBox(props) {
+const ContentBox: FunctionComponent<{}> = ({ children }) => {
   const classes = useStyles();
-  return <Card className={classes.root}>{props.children}</Card>;
-}
+  return <Card className={classes.root}>{children}</Card>;
+};
 
 export default ContentBox;

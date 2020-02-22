@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FunctionComponent } from 'react';
 import axios from 'axios';
-import DeparturesList from '../../DepartureList/DepartureList';
+import DeparturesList, { Departure } from '../../DepartureList/DepartureList';
 import ContentBox from '../../ContentBox/ContentBox';
-import { setStorageTimeToWalk } from '../../../storage/storage';
+import { setStorageTimeToWalk, Site } from '../../../storage/storage';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header/Header';
@@ -13,21 +13,27 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function getDirection(line) {
+function getDirection(departure: Departure) {
   // Some lines have opposite journey direction compared to other lines at same sites for some reason
   const switchDirection = ['821'];
 
-  if (switchDirection.includes(line.LineNumber)) {
-    if (line.JourneyDirection === 1) {
+  if (switchDirection.includes(departure.LineNumber)) {
+    if (departure.JourneyDirection === 1) {
       return 2;
-    } else if (line.JourneyDirection === 2) {
+    } else if (departure.JourneyDirection === 2) {
       return 1;
     }
   }
-  return line.JourneyDirection;
+  return departure.JourneyDirection;
 }
 
-function RealtimeResult(props) {
+interface RealtimeResultProps {
+  site: Site;
+  timeWindow: number;
+  showCantCatch: boolean;
+}
+
+const RealtimeResult: FunctionComponent<RealtimeResultProps> = props => {
   const classes = useStyles();
   const { site, timeWindow, showCantCatch } = props;
   const [realtimeResult, setRealtimeResult] = useState({
@@ -38,7 +44,7 @@ function RealtimeResult(props) {
   const apiUrl = 'https://sl-api-wrapper.herokuapp.com/';
   const apiPath = 'nextDeparture/';
 
-  const handleSetTimeToWalk = value => {
+  const handleSetTimeToWalk = (value: string) => {
     const intValue = parseInt(value, 10);
     const valueToSet = intValue < 0 || isNaN(intValue) ? 0 : intValue;
     setTimeToWalk(valueToSet);
@@ -55,7 +61,9 @@ function RealtimeResult(props) {
     fetchData();
   }, [site.siteId, timeWindow]);
 
-  const departures = realtimeResult.Buses.concat(realtimeResult.Trams);
+  const departures = realtimeResult.Buses.concat(
+    realtimeResult.Trams,
+  ) as Departure[];
   return (
     <ContentBox>
       <div className="RealtimeResult">
@@ -83,6 +91,6 @@ function RealtimeResult(props) {
       </div>
     </ContentBox>
   );
-}
+};
 
 export default RealtimeResult;

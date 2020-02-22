@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Typography, TextField, InputAdornment, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Site } from '../../../../storage/storage';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -14,7 +15,13 @@ const useStyles = makeStyles(theme => {
   };
 });
 
-function Header(props) {
+interface HeaderProps {
+  handleSetTimeToWalk: Function;
+  timeToWalk: number;
+  site: Site;
+}
+
+const Header: FunctionComponent<HeaderProps> = props => {
   const classes = useStyles();
   const { handleSetTimeToWalk, timeToWalk, site } = props;
   return (
@@ -41,6 +48,6 @@ function Header(props) {
       />
     </Box>
   );
-}
+};
 
 export default Header;

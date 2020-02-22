@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import MaterialListItem from '@material-ui/core/ListItem';
 import {
   ListItemText,
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function getIconSuffix(transportMode) {
+function getIconSuffix(transportMode: string) {
   if (transportMode === 'BUS') {
     return 'bus-alt';
   } else if (transportMode === 'TRAM') {
@@ -26,7 +26,7 @@ function getIconSuffix(transportMode) {
   }
 }
 
-function getColor(transportMode) {
+function getColor(transportMode: string) {
   if (transportMode === 'BUS') {
     return '#b22222';
   } else if (transportMode === 'TRAM') {
@@ -36,7 +36,7 @@ function getColor(transportMode) {
   }
 }
 
-function leaveString(minutes) {
+function leaveString(minutes: number) {
   if (minutes === 0) {
     return 'Gå nu!';
   } else {
@@ -44,8 +44,17 @@ function leaveString(minutes) {
   }
 }
 
-function ListItem(props) {
-  const { departure, timeToWalk } = props;
+interface ListItemProps {
+  departure: {
+    TransportMode: string,
+    LineNumber: string,
+    Destination: string,
+    MinutesToDeparture: number,
+  }
+  timeToWalk: number,
+}
+
+const ListItem: FunctionComponent<ListItemProps> = ({ departure, timeToWalk }) => {
   const classes = useStyles();
   return (
     <MaterialListItem>
