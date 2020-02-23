@@ -63,13 +63,17 @@ const DepartureList: FunctionComponent<DepartureListProps> = props => {
   );
   return (
     <List className={classes.root}>
-      {sortedList.map((departure, index) => (
-        <ListItem
-          timeToWalk={timeToWalk}
-          key={index}
-          departure={departure}
-        ></ListItem>
-      ))}
+      {list.length === 0 ? (
+        <ListItem departure={null}></ListItem>
+      ) : (
+        sortedList.map((departure, index) => (
+          <ListItem
+            timeToWalk={timeToWalk}
+            key={index}
+            departure={departure}
+          ></ListItem>
+        ))
+      )}
     </List>
   );
 };

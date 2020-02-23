@@ -6,9 +6,11 @@ import {
   ListItemSecondaryAction,
   Avatar,
   Typography,
+  LinearProgress,
 } from '@material-ui/core';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { Departure } from '../DepartureList';
 
 const useStyles = makeStyles(theme => ({
   secondary: {
@@ -44,18 +46,42 @@ function leaveString(minutes: number) {
   }
 }
 
+const ColorLinearProgress = withStyles({
+  root: {
+    height: 30,
+    borderRadius: 5,
+  },
+  colorPrimary: {
+    backgroundColor: '#ccc',
+  },
+  barColorPrimary: {
+    backgroundColor: '#bdbdbd',
+  },
+})(LinearProgress);
+
 interface ListItemProps {
-  departure: {
-    TransportMode: string,
-    LineNumber: string,
-    Destination: string,
-    MinutesToDeparture: number,
-  }
-  timeToWalk: number,
+  departure: Departure | null;
+  timeToWalk?: number;
 }
 
-const ListItem: FunctionComponent<ListItemProps> = ({ departure, timeToWalk }) => {
+const ListItem: FunctionComponent<ListItemProps> = ({
+  departure,
+  timeToWalk,
+}) => {
   const classes = useStyles();
+  if (departure === null) {
+    return (
+      <MaterialListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <i className={'fad fa-' + getIconSuffix('BUS')}></i>
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary={<ColorLinearProgress variant="query" />} />
+      </MaterialListItem>
+    );
+  }
+  const checkedTimeToWalk = typeof timeToWalk === 'undefined' ? 0 : timeToWalk;
   return (
     <MaterialListItem>
       <ListItemAvatar>
@@ -72,11 +98,11 @@ const ListItem: FunctionComponent<ListItemProps> = ({ departure, timeToWalk }) =
       />
       <ListItemSecondaryAction>
         <Typography variant="body1">
-          <b>{leaveString(departure.MinutesToDeparture - timeToWalk)}</b>
+          <b>{leaveString(departure.MinutesToDeparture - checkedTimeToWalk)}</b>
         </Typography>
       </ListItemSecondaryAction>
     </MaterialListItem>
   );
-}
+};
 
 export default ListItem;
