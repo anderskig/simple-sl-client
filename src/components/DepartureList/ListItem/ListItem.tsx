@@ -16,6 +16,12 @@ const useStyles = makeStyles(theme => ({
   secondary: {
     marginRight: 80,
   },
+  departureTime: {
+    color: 'rgba(0, 0, 0, 0.54)',
+    textAlign: 'right',
+    display: 'inline-block',
+    width: '100%',
+  },
 }));
 
 function getIconSuffix(transportMode: string) {
@@ -99,6 +105,9 @@ const ListItem: FunctionComponent<ListItemProps> = ({
       <ListItemSecondaryAction>
         <Typography variant="body1">
           <b>{leaveString(departure.MinutesToDeparture - checkedTimeToWalk)}</b>
+        </Typography>
+        <Typography className={classes.departureTime} variant="body2">
+          {departure.DisplayTime}
         </Typography>
       </ListItemSecondaryAction>
     </MaterialListItem>
