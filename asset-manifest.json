@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/simple-sl-client/static/js/main.f2e1869e.chunk.js",
-    "main.js.map": "/simple-sl-client/static/js/main.f2e1869e.chunk.js.map",
+    "main.js": "/simple-sl-client/static/js/main.4e3a3486.chunk.js",
+    "main.js.map": "/simple-sl-client/static/js/main.4e3a3486.chunk.js.map",
     "runtime-main.js": "/simple-sl-client/static/js/runtime-main.cb0e94ed.js",
     "runtime-main.js.map": "/simple-sl-client/static/js/runtime-main.cb0e94ed.js.map",
-    "static/js/2.e12d28e0.chunk.js": "/simple-sl-client/static/js/2.e12d28e0.chunk.js",
-    "static/js/2.e12d28e0.chunk.js.map": "/simple-sl-client/static/js/2.e12d28e0.chunk.js.map",
+    "static/js/2.e8965d70.chunk.js": "/simple-sl-client/static/js/2.e8965d70.chunk.js",
+    "static/js/2.e8965d70.chunk.js.map": "/simple-sl-client/static/js/2.e8965d70.chunk.js.map",
     "index.html": "/simple-sl-client/index.html",
-    "precache-manifest.3cf2a1157a8708aac05a2c2f490c70a5.js": "/simple-sl-client/precache-manifest.3cf2a1157a8708aac05a2c2f490c70a5.js",
+    "precache-manifest.8a6364247ead4bf5c8aeab77bfebf9ec.js": "/simple-sl-client/precache-manifest.8a6364247ead4bf5c8aeab77bfebf9ec.js",
     "service-worker.js": "/simple-sl-client/service-worker.js",
-    "static/js/2.e12d28e0.chunk.js.LICENSE.txt": "/simple-sl-client/static/js/2.e12d28e0.chunk.js.LICENSE.txt"
+    "static/js/2.e8965d70.chunk.js.LICENSE.txt": "/simple-sl-client/static/js/2.e8965d70.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.cb0e94ed.js",
-    "static/js/2.e12d28e0.chunk.js",
-    "static/js/main.f2e1869e.chunk.js"
+    "static/js/2.e8965d70.chunk.js",
+    "static/js/main.4e3a3486.chunk.js"
   ]
 }
